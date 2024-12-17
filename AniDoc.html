@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+
+  <style>
+    video {
+        display: block; 
+        margin: 0 auto; 
+    }
+</style>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  
+
+  </div>
+</nav>
+
+
+<section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">AniDoc: Animation Creation Made Easier</h1>
+            <div class="column is-full_width">
+            </div>
+            <!-- <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a>CVPR 2025 Anonymous Submition (Paper ID: 10366)</a>
+              </span>
+            </div> -->
+            <div class="is-size-5 publication-authors">
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <a href="https://yihao-meng.github.io/">Yihao Meng</a><sup>1,2</sup>,</span>
+                <span class="author-block">
+                  <a href="https://ken-ouyang.github.io/">Hao Ouyang</a><sup>2</sup>,</span>
+                <span class="author-block">
+                  <a href="https://openreview.net/profile?id=~Hanlin_Wang2">Hanlin Wang</a><sup>2,3</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://github.com/qiuyu96">Qiuyu Wang</a><sup>2</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=1ks0R04AAAAJ&hl=zh-CN">Wen Wang</a><sup>2,4</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://felixcheng97.github.io/">Ka Leong Cheng</a><sup>1,2</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://johanan528.github.io/">Zhiheng Liu</a><sup>5</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://shenyujun.github.io/">Yujun Shen</a><sup>2</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="http://huamin.org/">Huamin Qu</a><sup>1</sup>
+                </span>
+              </div>
+    
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"><sup>1</sup>HKUST,</span>
+                <span class="author-block"><sup>2</sup>Ant Group,</span>
+                <span class="author-block"><sup>3</sup>NJU,</span>
+                <span class="author-block"><sup>4</sup>ZJU,</span>
+                <span class="author-block"><sup>5</sup>HKU</span>
+              </div>
+    
+            <div class="column has-text-centered">
+              <div class="publication-links">
+
+                <span class="link-block">
+                  <a href="#our_results_container"
+                     class="external-link button is-normal is-rounded">
+                    <span>Gallery</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="#flexible_usage"
+                     class="external-link button is-normal is-rounded">
+                    <span>Flexible Usage</span>
+                  </a>
+                </span>          
+                
+                <span class="link-block">
+                  <a href="#comparisons"
+                     class="external-link button is-normal is-rounded">
+                    <span>Comparisons</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="#limitation"
+                     class="external-link button is-normal is-rounded">
+                    <span>Limitation</span>
+                  </a>
+                </span>
+              
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <video width="800" height="450" controls>
+    <source src="anidoc_video.mp4" type="video/mp4">
+
+</video>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Automating the colorization of line art in videos is crucial for streamlining animation production workflows and reducing labor costs.
+            However, challenges such as misalignment between character design art and line art sketches, as well as the need for temporal consistency, hinder automation efforts. 
+            Previous methods often require manually colored keyframes and dense line art guidance, increasing the artist's workload and suffering from color information leakage due to non-binarized sketch conditioning. 
+            We propose a novel all-in-one model that leverages priors from video diffusion model to automate the colorization process.
+            Our approach introduces an explicit correspondence mechanism with an injection module to align color information from reference images to input sketches, enhancing color accuracy.
+            A two-stage training strategy learns to interpolate between keyframes, reducing the need for sketching intermediate frames.
+            By conditioning on binarized sketches and employing data augmentation techniques, we improve training stability. 
+            Our method demonstrates superior quantitative and qualitative results, offering an effective solution for automatic line art video colorization and advancing the efficiency of animation production.
+          </p>
+         
+          
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </section>
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <div class="container is-max-desktop">
+            <!-- Gallery Title -->
+            <div class="columns is-centered has-text-centered" id="our_results_container">
+              <div class="column">
+                <h2 class="title is-3" style="margin-bottom: 40px;">Gallery</h2>
+
+              </div>
+            </div>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <div style="position: absolute; top: 0.8%; left: 16.5%; text-align: center;">
+            <p style="font-weight: bold; color: black;">Reference</p>
+        </div>
+        <div style="position: absolute; top: 0.8%; left: 47%; text-align: center;">
+            <p style="font-weight: bold; color: black;">Line art</p>
+        </div>
+        <div style="position: absolute; top: 0.8%; left: 77%; text-align: center;">
+            <p style="font-weight: bold; color: black;">Result</p>
+        </div>
+        <img src="show_case_2/image1.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image6.gif" alt="GIF Animation" width="816" height="170">
+
+
+        <img src="show_case_2/image3.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image4.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image5.gif" alt="GIF Animation" width="816" height="170">
+
+        <img src="show_case_2/image2.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image83.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image79.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image87.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image50.gif" alt="GIF Animation" width="816" height="170">
+    
+      
+        <img src="show_case_2/image48.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image8.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image9.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image10.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image12.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image11.gif" alt="GIF Animation" width="816" height="170">
+      
+
+
+      
+        <img src="show_case_2/image14.gif" alt="GIF Animation" width="816" height="170">
+
+        <img src="show_case_2/image15.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image16.gif" alt="GIF Animation" width="816" height="170">
+
+        <img src="show_case_2/image17.gif" alt="GIF Animation" width="816" height="170">
+  
+        <img src="show_case_2/image18.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image19.gif" alt="GIF Animation" width="816" height="170">
+
+        <img src="show_case_2/image21.gif" alt="GIF Animation" width="816" height="170">
+
+        <img src="show_case_2/image92.gif" alt="GIF Animation" width="816" height="170">
+        
+      
+        <img src="show_case_2/image94.gif" alt="GIF Animation" width="816" height="170">
+      
+
+    
+      
+        
+
+        <img src="show_case_2/image49.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image46.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image51.gif" alt="GIF Animation" width="816" height="170">
+     
+        <img src="show_case_2/image52.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image53.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image54.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image47.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image55.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image56.gif" alt="GIF Animation" width="816" height="170">
+
+      
+        <img src="show_case_2/image58.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image59.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image60.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image61.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image62.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image63.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image64.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image65.gif" alt="GIF Animation" width="816" height="170">
+
+
+        <img src="show_case_2/image67.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image68.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image69.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image70.gif" alt="GIF Animation" width="816" height="170">
+
+        <img src="show_case_2/image73.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image74.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image75.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image76.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image77.gif" alt="GIF Animation" width="816" height="170">
+      
+        <!-- <img src="show_case_2/image78.gif" alt="GIF Animation" width="816" height="170"> -->
+      
+      
+        <img src="show_case_2/image80.gif" alt="GIF Animation" width="816" height="170">
+      
+        <img src="show_case_2/image81.gif" alt="GIF Animation" width="816" height="170">
+
+
+        <img src="show_case_2/image82.gif" alt="GIF Animation" width="816" height="170">
+
+      
+        <img src="show_case_2/image84.gif" alt="GIF Animation" width="816" height="170">
+<!--       
+        <img src="show_case_2/image85.gif" alt="GIF Animation" width="816" height="170"> -->
+        <img src="show_case_2/image86.gif" alt="GIF Animation" width="816" height="170">
+
+      
+        <img src="show_case_2/image88.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image89.gif" alt="GIF Animation" width="816" height="170">
+
+      
+
+
+
+      </div>
+    </div>
+  </section>
+<!-- 
+  <div class="slider">
+    <div class="carousel results-carousel">
+        
+        <div class="item-steve">
+            <div class="gif-wrapper">
+                <img src="show_case_2/image21.gif" alt="GIF Animation">
+            </div>
+            <div class="gif-wrapper">
+                <img src="show_case_2/image22.gif" alt="GIF Animation">
+            </div>
+            <div class="gif-wrapper">
+                <img src="show_case_2/image23.gif" alt="GIF Animation">
+            </div>
+        </div>
+     
+        <div class="slider-item">
+            <div class="gif-wrapper">
+                <img src="show_case_2/image24.gif" alt="GIF Animation">
+            </div>
+            <div class="gif-wrapper">
+                <img src="show_case_2/image25.gif" alt="GIF Animation">
+            </div>
+            <div class="gif-wrapper">
+                <img src="show_case_2/image26.gif" alt="GIF Animation">
+            </div>
+        </div>
+        
+    </div>
+</div> -->
+
+
+
+  
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+
+    <div class="columns is-centered" id="flexible_usage">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Flexible Usage</h2>
+
+
+        <h3 class="title is-4">Same Reference with Varying Sketches</h3>
+        <div class="content has-text-justified">
+          <p>
+            By using the same reference, our model is able to generate consistent colorizations across different video clips, even when the sketches differ significantly in terms of pose or scale.
+          </p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <img src="show_case_2/image22.gif" alt="GIF Animation" width="816" height="170">
+
+        <img src="show_case_2/image23.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image24.gif" alt="GIF Animation" width="816" height="170" style="margin-bottom: 40px;"> 
+        <div style="text-align:center; margin-top: -50px; margin-bottom: 70px;font-size: 18px; letter-spacing: 0.2px;">
+            <em>Satoru Gojo from Jujutsu Kaisen</em>
+        </div>
+
+        <img src="show_case_2/image25.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image26.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image32_process.gif" alt="GIF Animation" width="816" height="170" style="margin-bottom: 40px;">
+        <div style="text-align:center; margin-top: -50px;margin-bottom: 70px; font-size: 18px; letter-spacing: 0.2px;">
+            <em>Chun from Big Fish & Begonia</em>
+        </div>
+        <img src="show_case_2/image31.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image29.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image30.gif" alt="GIF Animation" width="816" height="170" style="margin-bottom: 40px;">
+
+        <div style="text-align:center; margin-top: -50px; margin-bottom: 70px;font-size: 18px; letter-spacing: 0.2px;">
+            <em>Yuji Itadori from Jujutsu Kaisen</em>
+        </div>
+    </div>
+
+
+
+    <h3 class="title is-4">Same Sketch with Different References.</h3>
+    <div class="content has-text-justified">
+      <p>
+        When applying different reference images to the same sketch sequence, our method preserves the identity of the character while adapting the finer details, such as lighting and background, according to the distinct styles of the references.
+      </p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <img src="show_case_2/image33.gif" alt="GIF Animation" width="816" height="170">
+
+        <img src="show_case_2/image34.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image35.gif" alt="GIF Animation" width="816" height="170" style="margin-bottom: 40px;"> 
+        <div style="text-align:center; margin-top: -50px; margin-bottom: 70px;font-size: 18px; letter-spacing: 0.2px;">
+            <em>Anya Forger from Spy x Family</em>
+        </div>
+
+        <img src="show_case_2/image37.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image38.gif" alt="GIF Animation" width="816" height="170">
+        <img src="show_case_2/image36.gif" alt="GIF Animation" width="816" height="170" style="margin-bottom: 40px;">
+        <div style="text-align:center; margin-top: -50px;margin-bottom: 70px; font-size: 18px; letter-spacing: 0.2px;">
+            <em>Yuji Itadori from Jujutsu Kaisen</em>
+        </div>
+    </div>
+
+
+        <h3 class="title is-4">Sparse Input Sketches</h3>
+        <div class="content has-text-justified">
+          <p>
+            Thanks to our two-stage training strategy, our method supports animation with sparse sketches. By using only the start and end sketches, the model effectively produces smooth and coherent animations.
+          </p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+
+            <img src="show_case_2/image39.gif" alt="GIF Animation" width="1088" height="170">
+
+            <img src="show_case_2/image40.gif" alt="GIF Animation" width="1088" height="170">
+            <img src="show_case_2/image41.gif" alt="GIF Animation" width="1088" height="170">
+
+            <img src="show_case_2/image42.gif" alt="GIF Animation" width="1088" height="170" style="margin-bottom: 80px;" >
+
+        </div>
+
+
+        <h3 class="title is-4">Multiple Characters</h3>
+        <div class="content has-text-justified">
+          <p>
+            Although our work focuses on a single reference image and does not include specific training or processing for multiple references, we found that when a reference image containing more than one characters is provided, our model can automatically distinguish between the characters based on their corresponding features and apply correct coloring to each, even when the poses, angles, or relative positions of the characters in the reference and the line art differ significantly.
+          </p>
+        </div>
+    
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+            <img src="show_case_2/image85.gif" alt="GIF Animation" width="816" height="170">
+    
+            <img src="show_case_2/image95.gif" alt="GIF Animation" width="816" height="170" style="margin-bottom: 80px;">
+  
+        </div>
+
+
+        <h3 class="title is-4">Reference with Different Background</h3>
+        <div class="content has-text-justified">
+          <p>
+            When using images with different backgrounds as references, our model can transfer the style from the reference image to generate backgrounds with different styles.
+          </p>
+        </div>
+    
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+            <img src="show_case_2/image43.gif" alt="GIF Animation" width="816" height="170">
+    
+            <img src="show_case_2/image44.gif" alt="GIF Animation" width="816" height="170">
+            <img src="show_case_2/image45.gif" alt="GIF Animation" width="816" height="170" style="margin-bottom: 40px;"> 
+            <div style="text-align:center; margin-top: -50px; margin-bottom: 70px;font-size: 18px; letter-spacing: 0.2px;">
+                <em>Chun from Big Fish & Begonia</em>
+            </div>
+    
+   
+        </div>
+
+
+
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+  <div class="columns is-centered" id="comparisons">
+    <div class="column is-full-width">
+      <h2 class="title is-3">Comparisons</h2>
+
+
+<h2 id="comparison_with_baseline_container" align="left"><a name="image-results" id="image-results"></a>Comparisons with previous methods</h2>
+<table  width="1024" align="center">
+  <tbody>
+    
+      <tr>
+        <th style="font-size: 16px">Reference</th>
+        <th style="font-size: 16px">LVCD</th>
+        <th style="font-size: 16px">LVCD+IP-Adapter</th>
+        <th style="font-size: 16px">ID-Animator</th>
+
+      </tr>
+      <tr>
+        <th><img class="input_image_topdownlayout" width="240" src="./comparisons/reference/1.png" alt=""/></th>
+        <th rowspan="2"><video  width="240" src="./comparisons/lvcd_baseline_qualitative_right/1.mp4" autoplay loop controls muted/></th>
+        <th rowspan="2"><video  width="240" src="./comparisons/lvcd_baseline_qualitative_right/1_1.mp4" autoplay loop controls muted/></th>
+        <th rowspan="2"><video  width="240" src="./comparisons/id-animator_right/1.mp4" autoplay loop controls muted/></th>
+   
+      </tr>
+      <tr>
+        <th><img class="input_image_topdownlayout" width="0" src="./comparisons/reference/1.png" alt=""/></th>
+      </tr>
+
+      <th style="font-size: 16px"></th>
+      <th style="font-size: 16px">ToonCrafter</th>
+      <th style="font-size: 16px">AniDoc (Ours)</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th rowspan="2"><video  width="240" src="./comparisons/tooncrafter/1.mp4" autoplay loop controls muted/></th>
+      <th rowspan="2"><video  width="240" src="./comparisons/ours/1.mp4" autoplay loop controls muted/></th>
+
+      <th></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <tr> <td><br /></td> </tr> 
+  </tbody>
+</table>
+
+
+<table  width="1024" align="center">
+  <tbody>
+    
+      <tr>
+        <th style="font-size: 16px">Reference</th>
+        <th style="font-size: 16px">LVCD</th>
+        <th style="font-size: 16px">LVCD+IP-Adapter</th>
+        <th style="font-size: 16px">ID-Animator</th>
+
+      </tr>
+      <tr>
+        <th><img class="input_image_topdownlayout" width="240" src="./comparisons/reference/2.png" alt=""/></th>
+        <th rowspan="2"><video  width="240" src="./comparisons/lvcd_baseline_qualitative_right/2.mp4" autoplay loop controls muted/></th>
+        <th rowspan="2"><video  width="240" src="./comparisons/lvcd_baseline_qualitative_right/2_2.mp4" autoplay loop controls muted/></th>
+        <th rowspan="2"><video  width="240" src="./comparisons/id-animator_right/2.mp4" autoplay loop controls muted/></th>
+   
+      </tr>
+      <!-- <tr>
+        <th><img class="input_image_topdownlayout" src="./comparisons/reference/2.png" alt=""/></th>
+      </tr> -->
+      <tr>
+        <th><img class="input_image_topdownlayout" width="0" src="./comparisons/reference/1.png" alt=""/></th>
+      </tr>
+
+      <th style="font-size: 16px"></th>
+      <th style="font-size: 16px">ToonCrafter</th>
+      <th style="font-size: 16px">AniDoc (Ours)</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th rowspan="2"><video  width="240" src="./comparisons/tooncrafter/2.mp4" autoplay loop controls muted/></th>
+      <th rowspan="2"><video  width="240" src="./comparisons/ours/2.mp4" autoplay loop controls muted/></th>
+
+      <th></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <tr> <td><br /></td> </tr> 
+  </tbody>
+</table>
+
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+  <!-- Animation. -->
+  <div class="columns is-centered" id="limitation">
+    <div class="column is-full-width">
+      <h2 class="title is-3">Limitation</h2>        
+      <div class="content has-text-justified">
+        <p>
+          Although our method can colorize multiple clips containing the same character based on a single character design sheet while maintaining good character consistency, it still has certain limitations.
+        </p>
+      </div>
+
+      <div class="content has-text-justified">
+        <p>
+          First, when a line art clip contains objects that are not present in the reference, the model struggles to determine the appropriate colors for these objects. It can only infer colors based on the color information available in the reference, leading to inaccuracies in the colorization.
+        </p>
+      </div>
+
+
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <img src="show_case_2/fail2.gif" alt="GIF Animation" width="816" height="170">
+
+
+        <div class="content has-text-justified">
+          <p>
+            Second, when the clothing of a character in the line art clip differs from that in the reference image (even though it is the same character), our model can only infer reasonable colors based on the color patterns of the character's clothing in the reference image
+          </p>
+        </div>
+  
+  
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+          <img src="show_case_2/fail1.gif" alt="GIF Animation" width="816" height="170">
+</section> 
+</body>
+</html>
